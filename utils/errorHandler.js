@@ -3,7 +3,7 @@ const errorHandler = (controller) => {
         try {
             await controller(req, res, next);
         } catch (err) {
-            res.json({result : false, error : err})
+            res.json({result : false, error : "Problème de connexion, merci de réessayer ultérieurement.", err})
         }
     }
 }
