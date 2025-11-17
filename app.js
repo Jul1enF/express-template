@@ -21,8 +21,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// DB connection
 const dbConnection = require('./middlewares/db-connection-middleware')
 app.use(dbConnection)
+
+// Check of the final status send
+app.use((req, res, next) => {
+  res.on('finish', () => {
+    console.log(`RESPONSE STATUS : ${res.statusCode}`);
+    // Check if there is an etag (could provoke a 304)
+    // console.log('Response headers:', res.getHeaders());
+  });
+  next();
+});
 
 app.use('/users', usersRouter);
 
