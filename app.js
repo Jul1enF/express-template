@@ -21,6 +21,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Disable Express basic ETag
+app.disable('etag');
+
 // DB connection
 const dbConnection = require('./middlewares/db-connection-middleware')
 app.use(dbConnection)
@@ -29,8 +32,6 @@ app.use(dbConnection)
 app.use((req, res, next) => {
   res.on('finish', () => {
     console.log(`RESPONSE STATUS : ${res.statusCode}`);
-    // Check if there is an etag (could provoke a 304)
-    // console.log('Response headers:', res.getHeaders());
   });
   next();
 });

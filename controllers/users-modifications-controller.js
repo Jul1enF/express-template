@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 
 
 // UPDATE USER INFORMATIONS
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, next) => {
 
     const { name, firstname, email, oldPassword, password } = req.body;
 

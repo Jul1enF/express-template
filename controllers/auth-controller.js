@@ -7,7 +7,7 @@ const jwtTokenKey = process.env.JWT_TOKEN_KEY;
 
 
 // SIGNIN
-const signin = async (req, res) => {
+const signin = async (req, res, next) => {
 
     const { email, password } = req.body
 
@@ -28,7 +28,7 @@ const signin = async (req, res) => {
 
         await userData.save()
 
-        res.json({ result: true, firstname: userData.firstname, name: userData.name, email: userData.email, jwtToken: newJwtToken, is_admin: userData.is_admin })
+        res.json({ result: true, user : {firstname: userData.firstname, name: userData.name, email: userData.email, jwtToken: newJwtToken, is_admin: userData.is_admin }})
     }
 }
 
