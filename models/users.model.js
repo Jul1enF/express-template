@@ -1,9 +1,9 @@
 const mongoose =require('mongoose')
 
 const userSchema = mongoose.Schema({
-    firstname : String,
-    name : String,
-    email : String,
+    first_name: String,
+    last_name: String,
+    email : { type: String, unique: true },
     password : String,
     is_admin : {type : Boolean, default : false},
     token : String,

@@ -1,10 +1,11 @@
 const jwt = require("jsonwebtoken");
 const jwtTokenKey = process.env.JWT_TOKEN_KEY;
-const User = require("../models/users");
+const User = require("../models/users.model");
 
 const errorResponse = {
   result: false,
-  error: "Session invalide ou expirée. Merci de réessayer après vous être reconnecté.",
+  sessionExpired : true,
+  errorText: "Session invalide ou expirée. Merci de réessayer après vous être reconnecté(e).",
 }
 
 const userTokenAuth = async (req, res, next) => {
@@ -41,7 +42,7 @@ const adminTokenAuth = async (req, res, next) => {
     req.user = await User.findOne({ token });
 
     // Check that the user token has been successfuly found in the db
-    if (!req.user || !req.user.is_admin) {
+    if (!req.user || !req.user?.is_admin) {
       return res.json(errorResponse);
     }
 

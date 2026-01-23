@@ -1,4 +1,4 @@
-const User = require('../models/users')
+const User = require('../models/users.model')
 
 const bcrypt = require('bcrypt')
 const uid2 = require('uid2')
@@ -14,7 +14,7 @@ const signin = async (req, res, next) => {
     const userData = await User.findOne({ email })
 
     if (!userData || !bcrypt.compareSync(password, userData.password)) {
-        res.json({ result: false, error: "Email ou mot de passe incorrect !" })
+        res.json({ result: false, errorText: "Email ou mot de passe incorrect !" })
         return
     }
     else {
@@ -28,7 +28,7 @@ const signin = async (req, res, next) => {
 
         await userData.save()
 
-        res.json({ result: true, user : {firstname: userData.firstname, name: userData.name, email: userData.email, jwtToken: newJwtToken, is_admin: userData.is_admin }})
+        res.json({ result: true, user: { first_name: userData.first_name, last_name: userData.last_name, email: userData.email, jwtToken: newJwtToken, is_admin: userData.is_admin } })
     }
 }
 
