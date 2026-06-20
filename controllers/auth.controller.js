@@ -33,7 +33,6 @@ const signin = async (req, res, next) => {
     await userData.save()
 
     const user = {
-        isConnected: true,
         first_name: userData.first_name,
         last_name: userData.last_name,
         email: userData.email,
