@@ -26,6 +26,7 @@ const signin = async (req, res, next) => {
     const token = uid2(32)
     const newJwtToken = jwt.sign({
         token,
+        is_admin: userData.is_admin,
     }, jwtTokenKey)
 
     userData.token = token
